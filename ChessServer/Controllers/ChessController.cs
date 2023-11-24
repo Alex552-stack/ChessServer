@@ -1,8 +1,6 @@
 ﻿using ChessLogic;
-using ChessServer.Models.Moves;
 using ChessServer.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace ChessServer.Controllers
 {
@@ -31,10 +29,23 @@ namespace ChessServer.Controllers
             return Ok();
         }
 
+        [HttpGet("{gameId}/GetBoard")]
+        public IActionResult GetBoard(string gameId)
+        {
+            return Ok( chessService.GetBoard(gameId) );
+        }
+
+        [HttpPost("{gameId}/GetPossibleMoves")]
+        public IActionResult GetPossibleMoves(string gameId, [FromBody] Position piecePosition)
+        {
+            return Ok(chessService.GetPossibleMoves(gameId,piecePosition));
+        }
+        
+
         [HttpGet("TestMove")]
         public IActionResult TestMove()
         {
-            return Ok(JsonSerializer.Serialize(new NormalMove(new Position(1, 1), new Position(1, 2))));
+            return base.Ok(System.Text.Json.JsonSerializer.Serialize(new NormalMove(new Position(1, 1), new Position(1, 2))));
         }
     }
 }

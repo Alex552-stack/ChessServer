@@ -13,7 +13,8 @@ namespace ChessServer
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
                 {
-                    options.JsonSerializerOptions.Converters.Add(new MoveConverter());
+                    options.JsonSerializerOptions.Converters.Add(new MoveSerializer());
+                    options.JsonSerializerOptions.Converters.Add(new PieceArrayConverter());
                 });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
